@@ -1,5 +1,7 @@
 # Install Postgres as a server on CentOS 7
+
 ## Installation
+
 ### Install PostreSQL from CentOS Repo
 ```bash
 sudo yum install postgresql postgresql-contrib
@@ -19,7 +21,9 @@ sudo systemctl enable postgresql
 ```bash
 sudo -u postgres psql -c "SELECT version();"
 ```
+
 ## Setting up Database and Roles
+
 ### Create new Database
 ```bash
 sudo su - postgres -c "createdb demo_db"
@@ -43,3 +47,31 @@ sudo adduser demo_user
 ```bash
 sudo -u sammy psql
 ```
+
+## Enable Remote Access to PostgreSQL server
+
+### Change listening address and port
+```bash
+sudo nano /etc/postgresql/10/main/postgresql.conf
+```
+
+Update **listen_addresses** under **Connection Settings**
+```bash
+listen_addresses = '*'   
+```
+
+Restart the PostgreSQL to take effect
+```bash
+sudo systemctl restart postgresql
+```
+
+### Update **pg_hba.conf** to allow connections
+```bash
+# Allow access to all Databases
+host    all             demo_user           0.0.0.0/0              md5
+
+# For limit access only to a specific database
+host    demo_db         demo_user           0.0.0.0/0              md5
+
+# For limit access from only an specific IP
+host    all             demo_user           192.168.11.111         trust
