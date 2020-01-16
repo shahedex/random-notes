@@ -75,3 +75,10 @@ host    demo_db         demo_user           0.0.0.0/0              md5
 
 # For limit access from only an specific IP
 host    all             demo_user           192.168.11.111         trust
+```
+
+### If facing error like 'could not connect to server: No route to host'
+Stop firewall and try pinging the server
+```bash
+systemctl stop firewalld
+```
