@@ -4,7 +4,7 @@
 
 ### Install PostreSQL from CentOS Repo
 ```bash
-sudo yum install postgresql postgresql-contrib
+sudo yum install postgresql-server postgresql-contrib
 ```
 ### Initialize PostgreSQL Database 
 ```bash
